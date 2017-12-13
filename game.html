@@ -40,7 +40,18 @@
 		var mouseX = evt.clientX - rect.left - root.scrollLeft;
 		var mouseY = evt.clientY - rect.top - root.scrollTop;
 		return {
-			x:mouseX,
+			x: mouseX,
+			y: mouseY
+		}
+	}
+
+	function calculateMousePos(evt) {
+		var rect = canvas.getBoundingClientRect();
+		var root = document.documentElement;
+		var mouseX = evt.clientX - rect.left - root.scrollLeft;
+		var mouseY = evt.clientY - rect.top - root.scrollTop;
+		return {
+			x: mouseX,
 			y: mouseY
 		}
 	}
@@ -57,14 +68,14 @@
 		canvas = document.getElementById('gameCanvas');
 		canvasContext = canvas.getContext('2d');
 
-		gradient = canvasContext.createRadialGradient(264, 580, 1, 298, 640, 1000);
-		gradient.addColorStop(0, "#FCCC63"); //yellow
-		gradient.addColorStop(0.142, "#FBAD50"); //orange
-		gradient.addColorStop(0.286, "#E95950"); //red orange
-		gradient.addColorStop(0.429, "#CD486B"); //maroon
-		gradient.addColorStop(0.571, "#BC2A8D"); //red violet
-		gradient.addColorStop(0.714, "#8A3AB9"); //purple violet
-		gradient.addColorStop(1, "#4C68D7"); //blue
+		gradient = canvasContext.createRadialGradient(224, 680, 1, 258, 740, 1200);
+		gradient.addColorStop(0, "#FDDD74"); //yellow
+		gradient.addColorStop(0.122, "#FCBE61"); //orange
+		gradient.addColorStop(0.266, "#FA6A61"); //red orange
+		gradient.addColorStop(0.419, "#DE597C"); //maroon
+		gradient.addColorStop(0.566, "#CD3B9E"); //red violet
+		gradient.addColorStop(0.714, "#9B4BCA"); //purple violet
+		gradient.addColorStop(1, "#5D79E8"); //blue
 
 		var framesPerSecond = 40;
 		setInterval(function() {
@@ -76,6 +87,11 @@
 		// document.addEventListener('keydown', keyPush);
 
 		canvas.addEventListener('mousemove', function(evt) {
+			var mousePos = calculateMousePos(evt);
+			paddle1Y = mousePos.y - (PADDLE_HEIGHT / 2);
+		})
+
+		canvas.addEventListener('touchmove', function(evt) {
 			var mousePos = calculateMousePos(evt);
 			paddle1Y = mousePos.y - (PADDLE_HEIGHT / 2);
 		})
