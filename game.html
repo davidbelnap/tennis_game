@@ -5,8 +5,23 @@
 </head>
 <body>
 
-	<canvas id="gameCanvas" width="800" height="600" style="cursor: none;"></canvas>
-
+	<canvas
+		id="gameCanvas"
+		width="1240"
+		height="600"
+		style="
+			cursor: none;
+			width: 100vw;
+			height: 100vh;
+			display: block;
+		"
+	>
+	</canvas>
+<style>
+	body {
+		margin: 0;
+	}
+</style>
 <script>
 	var canvas;
 	var canvasContext;
@@ -14,8 +29,8 @@
 
 	var ballX = 50;
 	var ballY = 50;
-	var ballSpeedX = 8;
-	var ballSpeedY = 4;
+	var ballSpeedX = 10;
+	var ballSpeedY = 6;
 	var ballWidth = 7;
 
 	var AIDifficulty = 7;
@@ -68,7 +83,13 @@
 		canvas = document.getElementById('gameCanvas');
 		canvasContext = canvas.getContext('2d');
 
-		gradient = canvasContext.createRadialGradient(224, 680, 1, 258, 740, 1200);
+		gradient = canvasContext.createRadialGradient(
+			canvas.width / 4,
+			canvas.height * 1.47,
+			1,
+			canvas.width * 0.34,
+			canvas.height * 1.24,
+			canvas.width * 1.24);
 		gradient.addColorStop(0, "#FDDD74"); //yellow
 		gradient.addColorStop(0.122, "#FCBE61"); //orange
 		gradient.addColorStop(0.266, "#FA6A61"); //red orange
@@ -194,13 +215,24 @@
 			canvasContext.fillStyle = "white";
 
 			if(player1Score >= WINNING_SCORE) {
-				canvasContext.fillText("You won!", 350, 200);
+				canvasContext.fillText(
+					"You won!",
+					canvas.width * 0.476,
+					canvas.height / 3
+				);
 			} else if (player2Score >= WINNING_SCORE) {
-				canvasContext.fillText("The AI won.", 350, 200);
-
+				canvasContext.fillText(
+					"The AI won.",
+					canvas.width * 0.476,
+					canvas.height / 3
+				);
 			}
 
-			canvasContext.fillText("click to continue", 350, 500);
+			canvasContext.fillText(
+				"click to continue",
+				canvas.width * 0.47,
+				canvas.height * 0.83
+			);
 
 			return;
 		}
@@ -208,9 +240,21 @@
 		drawNet();
 
 		// this line is the left (player) paddle
-		colorRect(0 + PADDLE_MARGIN, paddle1Y, PADDLE_THICKNESS, 100, 'white');
+		colorRect(
+			0 + PADDLE_MARGIN,
+			paddle1Y,
+			PADDLE_THICKNESS,
+			100,
+			'white'
+		);
 		// this line is the right (AI) paddle
-		colorRect(canvas.width - PADDLE_MARGIN - PADDLE_THICKNESS, paddle2Y, PADDLE_THICKNESS, 100, 'white');
+		colorRect(
+			canvas.width - PADDLE_MARGIN - PADDLE_THICKNESS,
+			paddle2Y,
+			PADDLE_THICKNESS,
+			100,
+			'white'
+		);
 		// this line is the ball
 		colorCircle(ballX, ballY, ballWidth, 'white');
 
